@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    background-color: #0a0a0a;
+    color: #fafafa;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Adding a tiny bit of negative tracking to make Helvetica look incredibly modern and tight */
+    letter-spacing: -0.015em; 
+  }
+
+  /* Make sure headings are tight */
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.035em;
+  }
+}
