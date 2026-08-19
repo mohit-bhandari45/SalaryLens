@@ -4,17 +4,33 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  email         String   @unique
+  passwordHash  String?  // Nullable because Google OAuth users won't have a password
+  googleId      String?  @unique
+  createdAt     DateTime @default(now())
+  
+  // Relation to submissions
+  submissions   SalarySubmission[]
 }
 
 model SalarySubmission {
   id                 String   @id @default(uuid())
+  userId             String?  // Optional for now if we allow anonymous, but can enforce later
   role               String
   experienceYears    Float
   location           String
-  salary             Float    // Normalized to monthly INHAND representation for comparison
-  salaryPeriod       String   // e.g. 'monthly', 'yearly', 'ctc'
+  salary             Float    
+  salaryPeriod       String   
   companyType        String
-  workMode           String   // e.g. 'remote', 'hybrid', 'on-site'
+  workMode           String   
   createdAt          DateTime @default(now())
+
+  // Relation mapping
+  user               User?    @relation(fields: [userId], references: [id])
 }
