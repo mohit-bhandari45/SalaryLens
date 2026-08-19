@@ -5,7 +5,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.js';
 import healthRoutes from './routes/health.js';
 import salaryRoutes from './routes/salaries.js';
-import passport from './passport.js';
+import passport from './config/passport.js';
 
 const app = express();
 

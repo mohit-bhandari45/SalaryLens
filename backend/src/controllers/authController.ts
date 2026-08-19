@@ -1,9 +1,7 @@
 import type { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import prisma from '../db.js';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_salarylens_key_2026';
+import { generateToken } from '../utils/tokenUtils.js';
+import prisma from '../config/db.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -30,11 +28,7 @@ export const register = async (req: Request, res: Response) => {
             }
         });
 
-        const token = jwt.sign(
-            { id: newUser.id, username: newUser.username },
-            JWT_SECRET,
-            { expiresIn: '7d' }
-        );
+        const token = generateToken(newUser.id, newUser.username);
 
         res.status(201).json({
             message: 'User registered successfully',
@@ -61,11 +55,7 @@ export const login = async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        const token = jwt.sign(
-            { id: user.id, username: user.username },
-            JWT_SECRET,
-            { expiresIn: '7d' }
-        );
+        const token = generateToken(user.id, user.username);
 
         res.json({
             message: 'Logged in successfully',
@@ -86,13 +76,9 @@ export const googleCallback = (req: Request, res: Response) => {
     }
 
     // Generate JWT
-    const token = jwt.sign(
-        { id: user.id, username: user.username },
-        JWT_SECRET,
-        { expiresIn: '7d' }
-    );
+    const token = generateToken(user.id, user.username);
 
     // Redirect the user to the frontend with the token in the query params.
     // The frontend should have logic to grab this token and save it.
-    res.redirect(`http://localhost:3000/?token=${token}`);
+    res.redirect(`http://localhost:3000/dashboard?token=${token}`);
 };

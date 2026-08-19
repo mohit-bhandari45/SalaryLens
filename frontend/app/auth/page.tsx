@@ -43,8 +43,8 @@ export default function AuthPage() {
             // Save token to localStorage (or cookies in a real app)
             localStorage.setItem("token", data.token);
 
-            // Redirect to dashboard or home
-            router.push("/");
+            // Redirect to dashboard
+            router.push("/dashboard");
 
         } catch (err: any) {
             setError(err.message);

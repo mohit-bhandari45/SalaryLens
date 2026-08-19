@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import prisma from '../db.js';
+import prisma from '../config/db.js';
 
 export const getSalaries = async (req: Request, res: Response) => {
     try {
