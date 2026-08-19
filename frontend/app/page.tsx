@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-neutral-50 selection:bg-neutral-800">
@@ -24,12 +26,12 @@ export default function Home() {
           </p>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="px-8 py-4 bg-white text-black font-bold text-lg rounded-xl hover:bg-neutral-200 transition-colors w-full sm:w-auto shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+            <Link href="/auth" className="cursor-pointer px-8 py-4 bg-white text-black text-center font-bold text-lg rounded-xl hover:bg-neutral-200 transition-colors w-full sm:w-auto shadow-[0_0_40px_rgba(255,255,255,0.1)]">
               Check My Reality
-            </button>
-            <button className="px-8 py-4 bg-neutral-900 border border-neutral-800 text-white font-bold text-lg rounded-xl hover:bg-neutral-800 transition-colors w-full sm:w-auto">
+            </Link>
+            <Link href="/explore" className="cursor-pointer px-8 py-4 bg-neutral-900 border border-neutral-800 text-center text-white font-bold text-lg rounded-xl hover:bg-neutral-800 transition-colors w-full sm:w-auto">
               Explore Open Data
-            </button>
+            </Link>
           </div>
         </div>
 
