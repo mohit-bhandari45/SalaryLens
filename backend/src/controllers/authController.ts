@@ -77,3 +77,22 @@ export const login = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal server error during login' });
     }
 };
+
+export const googleCallback = (req: Request, res: Response) => {
+    // Passport attaches the authenticated user to req.user
+    const user = req.user as any;
+    if (!user) {
+        return res.redirect('http://localhost:3000/auth?error=GoogleAuthFailed');
+    }
+
+    // Generate JWT
+    const token = jwt.sign(
+        { id: user.id, username: user.username },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+    );
+
+    // Redirect the user to the frontend with the token in the query params.
+    // The frontend should have logic to grab this token and save it.
+    res.redirect(`http://localhost:3000/?token=${token}`);
+};
