@@ -1,0 +1,20 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model SalarySubmission {
+  id                 String   @id @default(uuid())
+  role               String
+  experienceYears    Float
+  location           String
+  salary             Float    // Normalized to monthly INHAND representation for comparison
+  salaryPeriod       String   // e.g. 'monthly', 'yearly', 'ctc'
+  companyType        String
+  workMode           String   // e.g. 'remote', 'hybrid', 'on-site'
+  createdAt          DateTime @default(now())
+}
