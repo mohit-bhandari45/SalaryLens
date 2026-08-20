@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { getSalaries } from '../controllers/salaryController.js';
+import { getMySalary, createSalary } from '../controllers/salaryController.js';
+import { authenticate } from '../middleware/auth.js';
 
 const router = Router();
 
-// Example endpoint to get salaries (Mock logic for now, will implement properly later)
-router.get('/', getSalaries);
+router.get('/me', authenticate as any, getMySalary as any);
+router.post('/', authenticate as any, createSalary as any);
 
 export default router;
